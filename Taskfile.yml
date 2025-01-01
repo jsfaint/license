@@ -1,0 +1,42 @@
+# https://taskfile.dev
+
+version: "3"
+
+env:
+  LDFLAGS: "-s -w -H=windowsgui"
+  CGO_ENABLED: 0
+  GOOS: windows
+
+tasks:
+  default:
+    deps:
+      - build
+    silent: true
+
+  build:
+    desc: Build the project
+    deps:
+      - module
+    cmds:
+      - go build -ldflags "{{.LDFLAGS}}"
+    silent: true
+
+  clean:
+    desc: Clean the project
+    cmds:
+      - go clean -cache
+    silent: true
+
+  module:
+    desc: Download the dependencies
+    cmds:
+      - go mod tidy
+    silent: true
+
+  run:
+    desc: Run the project
+    deps:
+      - module
+    cmds:
+      - go run main.go
+    silent: true
