@@ -37,7 +37,7 @@ func getPackagesList(name string) (list []string) {
 		return
 	}
 
-	file, err := modfile.Parse("go.mod", data, nil)
+	file, err := modfile.Parse(filepath.Base(name), data, nil)
 	if err != nil {
 		return
 	}
