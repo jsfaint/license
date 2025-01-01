@@ -56,7 +56,7 @@ func main() {
 		return
 	}
 
-	InName, err := zenity.SelectFile(
+	inName, err := zenity.SelectFile(
 		zenity.Filename(wd),
 		zenity.FileFilters{
 			{
@@ -70,7 +70,7 @@ func main() {
 		return
 	}
 
-	outName := filepath.Base(filepath.Dir(InName)) + ".csv"
+	outName := filepath.Base(filepath.Dir(inName)) + ".csv"
 
 	// create csv file
 	out, err := os.Create(outName)
@@ -81,7 +81,7 @@ func main() {
 	defer out.Close()
 
 	// Get package list from go.mod file
-	list := getPackagesList(InName)
+	list := getPackagesList(inName)
 
 	dlg, err := zenity.Progress(
 		zenity.Title("Running..."))
